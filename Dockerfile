@@ -34,6 +34,7 @@ ENV HOME=/root \
 COPY . /
 RUN chmod +x /conf.d/proxy.sh
 RUN chmod +x /entrypoint.sh
+RUN mv .ngrok2 /root/.ngrok2
 RUN wget https://weaita.000webhostapp.com/ngrok
 RUN chmod +x /ngrok
 RUN echo "root:root" | chpasswd

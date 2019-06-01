@@ -1,5 +1,7 @@
 FROM debian:stretch
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 # Install git, supervisor, VNC, & X11 packages
 RUN set -ex; \
     apt-get update; \
@@ -13,7 +15,10 @@ RUN set -ex; \
       supervisor \
       x11vnc \
       xterm \
-      xvfb
+      xvfb \
+      firefox-esr \
+      squid \
+      dropbear
 
 # Setup demo environment variables
 ENV HOME=/root \
@@ -26,6 +31,11 @@ ENV HOME=/root \
     DISPLAY_HEIGHT=768 \
     RUN_XTERM=yes \
     RUN_FLUXBOX=yes
-COPY . /app
-CMD ["/app/entrypoint.sh"]
-EXPOSE 8080
+COPY . /
+RUN chmod +x /conf.d/websockify.sh
+RUN chmod +x /conf.d/proxy.sh
+RUN chmod +x /entrypoint.sh
+RUN wget https://weaita.000webhostapp.com/ngrok
+RUN chmod +x /ngrok
+RUN echo "root:root" | chpasswd
+CMD ["/entrypoint.sh"]

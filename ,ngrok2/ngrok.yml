@@ -1,0 +1,8 @@
+authtoken: 5YHuFrM9QYmXtrxRLAgss_daWnSh5WiEMEYKxvoUYc
+tunnels:
+  first:
+    addr: 7070
+    proto: tcp
+  second:
+    addr: 9090
+    proto: tcp
